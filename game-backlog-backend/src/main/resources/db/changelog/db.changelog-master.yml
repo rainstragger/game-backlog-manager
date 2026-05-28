@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-initial-schema
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/01-initial-schema.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
