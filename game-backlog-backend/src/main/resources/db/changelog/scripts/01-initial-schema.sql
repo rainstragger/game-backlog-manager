@@ -1,4 +1,4 @@
-CREATE TABLE "Games"(
+CREATE TABLE "games"(
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "resume" TEXT NULL,
@@ -13,16 +13,16 @@ CREATE TABLE "Games"(
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now() NOT NULL
 );
 ALTER TABLE
-    "Games" ADD PRIMARY KEY("id");
-CREATE TABLE "Library"(
+    "games" ADD PRIMARY KEY("id");
+CREATE TABLE "library"(
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "description" TEXT NULL,
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now() NOT NULL
 );
 ALTER TABLE
-    "Library" ADD PRIMARY KEY("id");
-CREATE TABLE "ItemLibrary"(
+    "library" ADD PRIMARY KEY("id");
+CREATE TABLE "item_library"(
     "id" SERIAL NOT NULL,
     "game_id" INTEGER NOT NULL,
     "library_id" INTEGER NOT NULL,
@@ -32,8 +32,8 @@ CREATE TABLE "ItemLibrary"(
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now() NOT NULL
 );
 ALTER TABLE
-    "ItemLibrary" ADD PRIMARY KEY("id");
-CREATE TABLE "CoverMedia"(
+    "item_library" ADD PRIMARY KEY("id");
+CREATE TABLE "cover_media"(
     "id" SERIAL NOT NULL,
     "storage_key" TEXT NOT NULL,
     "name" VARCHAR(255) NOT NULL,
@@ -43,10 +43,21 @@ CREATE TABLE "CoverMedia"(
     "size_bytes" BIGINT NOT NULL
 );
 ALTER TABLE
-    "CoverMedia" ADD PRIMARY KEY("id");
+    "cover_media" ADD PRIMARY KEY("id");
+
+    
 ALTER TABLE
-    "ItemLibrary" ADD CONSTRAINT "itemlibrary_gameid_foreign" FOREIGN KEY("game_id") REFERENCES "Games"("id");
+    "item_library" ADD CONSTRAINT "item_library_game_id_foreign" FOREIGN KEY("game_id") REFERENCES "games"("id");
 ALTER TABLE
-    "Games" ADD CONSTRAINT "games_coverid_foreign" FOREIGN KEY("cover_id") REFERENCES "CoverMedia"("id");
+    "games" ADD CONSTRAINT "games_coverid_foreign" FOREIGN KEY("cover_id") REFERENCES "cover_media"("id");
 ALTER TABLE
-    "ItemLibrary" ADD CONSTRAINT "itemlibrary_library_id_foreign" FOREIGN KEY("library_id") REFERENCES "Library"("id");
+    "item_library" ADD CONSTRAINT "item_library_library_id_foreign" FOREIGN KEY("library_id") REFERENCES "library"("id");
+
+INSERT INTO "library"(
+    "name",
+    "description"
+)
+VALUES(
+    'Library',
+    'Basic Library for games'
+)

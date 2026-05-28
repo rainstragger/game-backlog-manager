@@ -8,3 +8,12 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
+  - changeSet:
+      id: 02-changes-uniqueness-table
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/02-changes-uniqueness-table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
