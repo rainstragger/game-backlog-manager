@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record GamesDTO(
-	Long id,
+	Integer id,
 	String name,
 	String resume,
 	LocalDate launchDate,
