@@ -17,3 +17,12 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
+  - changeSet:
+      id: 03-remove-duplicate-columns
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/03-remove-duplicate-columns.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
