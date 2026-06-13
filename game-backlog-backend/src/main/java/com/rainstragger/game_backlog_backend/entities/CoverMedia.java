@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cover_media")
@@ -17,18 +18,23 @@ public class CoverMedia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Storage key is required")
     @Column(name = "storage_key", nullable = false)
     private String storageKey;
 
+    @NotBlank(message = "Name is required")
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotBlank(message = "Checksum is required")
     @Column(name = "checksum", nullable = false)
     private String checksum;
 
+    @NotBlank(message = "Content type is required")
     @Column(name = "content_type", nullable = false)
     private String contentType;
 
+    @NotBlank(message = "Size bytes is required")
     @Column(name = "size_bytes", nullable = false)
     private BigInteger sizeBytes;
 

@@ -8,7 +8,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.FetchType;
 
 @Entity
 @Table(name = "item_library")
@@ -17,12 +22,15 @@ public class ItemLibrary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "game_id", nullable = false)
-    private Integer gameId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", nullable = false)
+    private Games gameId;
 
-    @Column(name = "library_id", nullable = false)
-    private Integer libraryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "library_id", nullable = false)
+    private Library libraryId;
 
+    @NotBlank(message = "Status is required")
     @Column(name = "status", nullable = false)
     private String status;
 
@@ -44,19 +52,19 @@ public class ItemLibrary {
         return id;
     }
 
-    public void setGameId(Integer gameId) {
+    public void setGameId(Games gameId) {
         this.gameId = gameId;
     }
 
-    public Integer getGameId() {
+    public Games getGameId() {
         return gameId;
     }
 
-    public void setLibraryId(Integer libraryId) {
+    public void setLibraryId(Library libraryId) {
         this.libraryId = libraryId;
     }
 
-    public Integer getLibraryId() {
+    public Library getLibraryId() {
         return libraryId;
     }
     
