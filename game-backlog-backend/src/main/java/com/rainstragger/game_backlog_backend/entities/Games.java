@@ -22,6 +22,9 @@ public class Games {
 	@Column(name = "name", nullable = false)
 	private String name;
 
+	@Column(name = "active", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+	private Boolean active;
+
 	@Column(name = "resume")
 	private String resume;
 
@@ -63,6 +66,14 @@ public class Games {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	public String getResume() {

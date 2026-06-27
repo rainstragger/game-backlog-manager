@@ -38,6 +38,9 @@ public class CoverMedia {
     @Column(name = "size_bytes", nullable = false)
     private BigInteger sizeBytes;
 
+    @Column(name = "active", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean active;
+
     @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -87,6 +90,14 @@ public class CoverMedia {
     
     public BigInteger getSizeBytes() {
         return sizeBytes;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
     
     public void setCreatedAt(LocalDateTime createdAt) {

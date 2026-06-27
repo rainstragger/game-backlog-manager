@@ -26,3 +26,12 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
+  - changeSet:
+      id: 04-add-active-columns
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/04-add-active-columns.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true

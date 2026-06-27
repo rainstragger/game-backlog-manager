@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public record GamesDTO(
 	Integer id,
 	String name,
+	Boolean active,
 	String resume,
 	LocalDate launchDate,
 	String developer,

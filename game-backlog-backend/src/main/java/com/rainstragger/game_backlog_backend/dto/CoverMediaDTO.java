@@ -10,6 +10,7 @@ public record CoverMediaDTO(
     String checksum,
     String contentType,
     BigInteger sizeBytes,
+    Boolean active,
     LocalDateTime createdAt
 ) {
     

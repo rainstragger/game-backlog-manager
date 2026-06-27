@@ -34,6 +34,9 @@ public class ItemLibrary {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @Column(name = "active", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean active;
+
     @Column(name = "completed_at")
     private LocalDate completedAt;
 
@@ -74,6 +77,14 @@ public class ItemLibrary {
 
     public String getStatus() {
         return status;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public void setCompletedAt(LocalDate completedAt) {

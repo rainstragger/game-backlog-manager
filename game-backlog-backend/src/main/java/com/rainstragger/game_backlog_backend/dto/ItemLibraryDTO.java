@@ -8,6 +8,7 @@ public record ItemLibraryDTO(
 	Integer gameId,
 	Integer libraryId,
 	String status,
+	Boolean active,
 	LocalDate startedAt,
 	LocalDate completedAt,
 	LocalDateTime createdAt

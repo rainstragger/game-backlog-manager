@@ -6,6 +6,7 @@ public record LibraryDTO(
     Integer id,
     String name,
     String description,
+    Boolean active,
     LocalDateTime createdAt
 ) {
     
