@@ -18,7 +18,7 @@ public class GamesService {
     }
 
     public List <Games> findAll(boolean active) {
-        return gamesRepository.findAllByActiveOrderByNameAsc(active);
+        return gamesRepository.findAllByActive(active);
     }
 
     public Optional<Games> findById(Integer id) {
