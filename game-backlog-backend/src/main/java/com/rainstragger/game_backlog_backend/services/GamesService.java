@@ -17,7 +17,7 @@ public class GamesService {
         this.gamesRepository = gamesRepository;
     }
 
-    public List <Games> findAll(boolean active) {
+    public Optional<List<Games>> findAll(boolean active) {
         return gamesRepository.findAllByActive(active);
     }
 
@@ -29,41 +29,43 @@ public class GamesService {
         return gamesRepository.findByName(name);
     }
 
-    public List<Games> findByTerm(String term) {
+    public Optional<List<Games>> findByTerm(String term) {
         return gamesRepository.findByTerm(term);
     }
 
     public Games create(Games game) {
         if (game.getId() != null) {
-            throw new IllegalArgumentException("Jogo já existe");
-        }
-        if (game.getActive() == null) {
+            throw new IllegalArgumentException("Game already exists!");
+        }else{
+            if (game.getActive() == null) {
             game.setActive(true);
+            }
+            return gamesRepository.save(game);
         }
-        return gamesRepository.save(game);
+        
     }
 
     public Games update(Integer id, Games games) {
-		Games existente = findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Jogo não encontrado"));
+		Games existent = findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Game not found!"));
 
-		existente.setName(games.getName());
-        existente.setActive(games.getActive());
-        existente.setResume(games.getResume());
-        existente.setLaunchDate(games.getLaunchDate());
-        existente.setDeveloper(games.getDeveloper());
-        existente.setPublisher(games.getPublisher());
-        existente.setGenre(games.getGenre());
-        existente.setMinReq(games.getMinReq());
-        existente.setRecomReq(games.getRecomReq());
-        existente.setCoverId(games.getCoverId());
+		existent.setName(games.getName());
+        existent.setActive(games.getActive());
+        existent.setResume(games.getResume());
+        existent.setLaunchDate(games.getLaunchDate());
+        existent.setDeveloper(games.getDeveloper());
+        existent.setPublisher(games.getPublisher());
+        existent.setGenre(games.getGenre());
+        existent.setMinReq(games.getMinReq());
+        existent.setRecomReq(games.getRecomReq());
+        existent.setCoverId(games.getCoverId());
 
 		return gamesRepository.save(existente);
 	}
 
     public void remove(Integer id) {
         Games game = findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Jogo não encontrado"));
+				.orElseThrow(() -> new IllegalArgumentException("Game not found!"));
         
         //Soft Delete
         game.setActive(false);

@@ -15,8 +15,8 @@ public interface GamesRepository extends JpaRepository<Games, Integer> {
 
     List<Games> findAllByActive(boolean active);
 
-    @Query("SELECT g FROM Games g WHERE g.active = TRUE AND (LOWER(g.name) LIKE LOWER(CONCAT('%', :term, '%')))")
-	List<Games> findByTerm(@Param("term") String term);
+    @Query("SELECT g FROM Games g WHERE g.active = TRUE AND (LOWER(g.name) LIKE LOWER(CONCAT('%', :name, '%')))")
+	List<Games> findByTerm(@Param("name") String name);
 
     
 }

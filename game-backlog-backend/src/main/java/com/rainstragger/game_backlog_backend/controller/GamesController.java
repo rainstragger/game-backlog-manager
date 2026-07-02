@@ -49,8 +49,8 @@ public class GamesController {
 		return games.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/buscar")
-	public ResponseEntity<List<GamesDTO>> findByTerm(@RequestParam String term) {
+	@GetMapping("/{term}")
+	public ResponseEntity<List<GamesDTO>> findByTerm(@PathVariable String term) {
 		List<GamesDTO> games = gamesService.findByTerm(term).stream()
 				.map(gamesMapper::toDTO)
 				.toList();
