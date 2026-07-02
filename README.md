@@ -11,14 +11,16 @@ It is also a personal study project built to practice backend structure, fronten
 ---
 
 ## 🚧 Current Status
-The backend foundation is already working, and the first core resource is up and running.
+The backend foundation is already working, and the first core resources are up and running.
 
 - Spring Boot backend initialized
 - PostgreSQL and MinIO running locally with Docker Compose
 - Liquibase configured for schema versioning
 - `Games` resource implemented with REST endpoints
+- `Library` resource implemented with REST endpoints
 - `Games` entity separated from API payloads using DTO + mapper
-- Basic CRUD flow for `Games` validated with Insomnia
+- `Library` entity separated from API payloads using DTO + mapper
+- Basic CRUD flow for `Games` and `Library` validated with Insomnia
 
 ---
 
@@ -74,3 +76,7 @@ For media handling, the project follows a simple local-first approach:
 - Backend: Spring Boot + Java
 - Database: PostgreSQL
 - Containerization: Docker
+
+---
+
+
