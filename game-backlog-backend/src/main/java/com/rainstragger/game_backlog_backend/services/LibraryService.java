@@ -1,22 +1,24 @@
 package com.rainstragger.game_backlog_backend.services;
 
-import com.rainstragger.game_backlog_backend.model.Library;
+import com.rainstragger.game_backlog_backend.entities.Library;
 import com.rainstragger.game_backlog_backend.repository.LibraryRepository;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class LibraryService implements LibraryRepository {
+public class LibraryService {
     private final LibraryRepository libraryRepository;
 
     public LibraryService(LibraryRepository libraryRepository) {
         this.libraryRepository = libraryRepository;
     }
 
-    public Optional<List<Library>> findAll (boolean active){
+    public List<Library> findAll (boolean active){
         return libraryRepository.findAllByActive(active);
     }
 
-    public Optional<List<Library>> findByTerm (String term){
+    public List<Library> findByTerm (String term){
         return libraryRepository.findByTerm(term);
     }
 
@@ -39,8 +41,8 @@ public class LibraryService implements LibraryRepository {
         }
     }
 
-    public Library update (Library library){
-        Library existent = findById(library.getId())
+    public Library update (Integer id, Library library){
+        Library existent = findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Library not found!"));
         existent.setName(library.getName());
         existent.setDescription(library.getDescription());
@@ -48,10 +50,12 @@ public class LibraryService implements LibraryRepository {
         return libraryRepository.save(existent);
     }
 
-    public Library remove (Library library){
-        Library library = findById(library.getId())
+    public void remove (Integer id){
+        Library library = findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Library not found!"));
+        
+        //Soft Delete
         library.setActive(false);
-        return libraryRepository.save(library);
+        libraryRepository.save(library);
     }
 }

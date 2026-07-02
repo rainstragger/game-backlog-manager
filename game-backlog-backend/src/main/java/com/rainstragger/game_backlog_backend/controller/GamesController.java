@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rainstragger.game_backlog_backend.dto.GamesDTO;
@@ -49,7 +48,7 @@ public class GamesController {
 		return games.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/{term}")
+	@GetMapping("/search/{term}")
 	public ResponseEntity<List<GamesDTO>> findByTerm(@PathVariable String term) {
 		List<GamesDTO> games = gamesService.findByTerm(term).stream()
 				.map(gamesMapper::toDTO)

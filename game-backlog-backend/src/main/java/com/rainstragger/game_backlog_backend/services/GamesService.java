@@ -17,7 +17,7 @@ public class GamesService {
         this.gamesRepository = gamesRepository;
     }
 
-    public Optional<List<Games>> findAll(boolean active) {
+    public List<Games> findAll(boolean active) {
         return gamesRepository.findAllByActive(active);
     }
 
@@ -29,7 +29,7 @@ public class GamesService {
         return gamesRepository.findByName(name);
     }
 
-    public Optional<List<Games>> findByTerm(String term) {
+    public List<Games> findByTerm(String term) {
         return gamesRepository.findByTerm(term);
     }
 
@@ -60,7 +60,7 @@ public class GamesService {
         existent.setRecomReq(games.getRecomReq());
         existent.setCoverId(games.getCoverId());
 
-		return gamesRepository.save(existente);
+		return gamesRepository.save(existent);
 	}
 
     public void remove(Integer id) {
