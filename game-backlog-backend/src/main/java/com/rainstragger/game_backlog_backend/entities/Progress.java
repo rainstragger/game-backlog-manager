@@ -3,8 +3,12 @@ package com.rainstragger.game_backlog_backend.entities;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.rainstragger.game_backlog_backend.enums.ProgressEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "progress")
@@ -25,9 +28,9 @@ public class Progress {
     @JoinColumn(name = "item_library_id", nullable = false, unique = true)
     private ItemLibrary itemLibrary;
 
-    @NotBlank(message = "Status is required")
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private String status;
+    private ProgressEnum status;
 
     @Column(name = "started_at")
     private LocalDate startedAt;
@@ -54,11 +57,11 @@ public class Progress {
         this.itemLibrary = itemLibrary;
     }
 
-    public String getStatus() {
+    public ProgressEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ProgressEnum status) {
         this.status = status;
     }
 

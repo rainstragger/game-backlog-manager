@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.rainstragger.game_backlog_backend.dto.ProgressDTO;
 import com.rainstragger.game_backlog_backend.entities.ItemLibrary;
 import com.rainstragger.game_backlog_backend.entities.Progress;
+import com.rainstragger.game_backlog_backend.enums.ProgressEnum;
 
 @Component
 public class ProgressMapper {
@@ -12,7 +13,7 @@ public class ProgressMapper {
         return new ProgressDTO(
                 progress.getId(),
                 progress.getItemLibrary().getId(),
-                progress.getStatus(),
+                progress.getStatus().toString(),
                 progress.getStartedAt(),
                 progress.getCompletedAt(),
                 progress.getCreatedAt()
@@ -27,7 +28,7 @@ public class ProgressMapper {
 
         progress.setId(progressDTO.id());
         progress.setItemLibrary(itemLibrary);
-        progress.setStatus(progressDTO.status());
+        progress.setStatus(ProgressEnum.valueOf(progressDTO.status()));
         progress.setStartedAt(progressDTO.startedAt());
         progress.setCompletedAt(progressDTO.completedAt());
 
