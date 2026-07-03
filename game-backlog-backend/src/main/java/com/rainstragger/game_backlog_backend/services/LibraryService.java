@@ -14,8 +14,8 @@ public class LibraryService {
         this.libraryRepository = libraryRepository;
     }
 
-    public List<Library> findAll (boolean active){
-        return libraryRepository.findAllByActive(active);
+    public List<Library> findAll (){
+        return libraryRepository.findAllByActiveTrue();
     }
 
     public List<Library> findByTerm (String term){

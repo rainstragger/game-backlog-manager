@@ -35,3 +35,21 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
+  - changeSet:
+      id: 05-remove-item-library-active
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/05-remove-item-library-active.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: 06-create-progress
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/06-create-progress.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true

@@ -32,7 +32,7 @@ public class LibraryController {
 
     @GetMapping
     public ResponseEntity<List<LibraryDTO>> findAll(){
-        List<LibraryDTO> library = libraryService.findAll(true).stream()
+        List<LibraryDTO> library = libraryService.findAll().stream()
             .map(libraryMapper::toDTO)
             .toList();
 
