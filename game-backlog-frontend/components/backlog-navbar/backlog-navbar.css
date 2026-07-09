@@ -1,0 +1,29 @@
+.backlog-navbar {
+    display: flex;
+    flex-direction: column;
+    background-color: #15242b;
+    min-height: 100vh;
+    width: 10rem;
+    padding: 1rem;
+    border-right: 1px solid #67d1b8;
+    position: sticky;
+}
+
+.backlog-navbar_brand {
+    width: 100%;
+    margin-right: 0;
+}
+
+.backlog-navbar .nav-link {
+    text-transform: uppercase;
+    color: #49586A;
+    font-size: 1.1em;
+    padding-bottom: 0.75rem;
+}
+
+.backlog-navbar .nav-link:hover,
+.backlog-navbar .nav-link:focus,
+.backlog-navbar .nav-link:active,
+.backlog-navbar .nav-link.active {
+    color: #67d1b8;
+}
