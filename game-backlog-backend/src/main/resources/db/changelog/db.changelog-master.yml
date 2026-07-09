@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-initial-schema
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/01-initial-schema.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: 02-changes-uniqueness-table
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/02-changes-uniqueness-table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: 03-remove-duplicate-columns
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/03-remove-duplicate-columns.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: 04-add-active-columns
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/04-add-active-columns.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: 05-remove-item-library-active
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/05-remove-item-library-active.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: 06-create-progress
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/06-create-progress.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: 07-add-constraint-progress-status-check
+      author: guilherme
+      changes:
+        - sqlFile:
+            path: scripts/07-add-constraint-progress-status-check.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true            
