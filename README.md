@@ -11,16 +11,18 @@ It is also a personal study project built to practice backend structure, fronten
 ---
 
 ## 🚧 Current Status
-The backend foundation is already working, and the first core resources are up and running.
+The backend foundation is already working, and the main core resources are already structured and testable.
 
 - Spring Boot backend initialized
 - PostgreSQL and MinIO running locally with Docker Compose
 - Liquibase configured for schema versioning
 - `Games` resource implemented with REST endpoints
 - `Library` resource implemented with REST endpoints
+- `ItemLibrary` resource implemented as the link between a library and a game
+- `Progress` resource implemented as a global game progress tracker
 - `Games` entity separated from API payloads using DTO + mapper
 - `Library` entity separated from API payloads using DTO + mapper
-- Basic CRUD flow for `Games` and `Library` validated with Insomnia
+- Basic CRUD flow validated with Insomnia
 
 ---
 
@@ -34,14 +36,16 @@ The main idea of this project is to build something that feels like a real produ
 ---
 
 ## 🕹️ MVP
-The first version focuses on the essential game catalog flow:
+The first version focuses on the essential game catalog and backlog flow:
 
 - Register a game
-- List all games in the library
-- See game details such as cover, genre, release date, developer, and publisher
+- List all games in the catalog
+- See game details such as genre, release date, developer, and publisher
 - Update game details
-- Delete a game from the library
-- Track the game status
+- Delete a game from the catalog
+- Create libraries
+- Add a game to a library
+- Track the game progress status
 
 ---
 
@@ -54,11 +58,14 @@ After the MVP, the project can grow into a more complete backlog platform:
 - See the playtime of the user, for each game and a total playtime
 - See each player's library
 - Add game achievements
+- Add game cover
 - Add game tags
 - Add game comments
 - Add game ratings
 - Add game reviews
 - Read APIs to get multiple game accounts to track players progress, achievements, and time spent
+- Add playtime and session tracking
+- Refine progress rules and historical progress updates
 
 ---
 
@@ -78,5 +85,4 @@ For media handling, the project follows a simple local-first approach:
 - Containerization: Docker
 
 ---
-
 
