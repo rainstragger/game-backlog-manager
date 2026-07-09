@@ -31,9 +31,9 @@ public class ProgressController {
         this.progressMapper = progressMapper;
     }
 
-    @GetMapping("/library/{libraryId}")
-    public ResponseEntity<List<ProgressDTO>> findAllByLibraryId(@PathVariable Integer libraryId) {
-        List<ProgressDTO> progressList = progressService.findAllByLibraryId(libraryId).stream()
+    @GetMapping
+    public ResponseEntity<List<ProgressDTO>> findAll() {
+        List<ProgressDTO> progressList = progressService.findAll().stream()
                 .map(progressMapper::toDTO)
                 .toList();
         return ResponseEntity.ok(progressList);
@@ -46,17 +46,16 @@ public class ProgressController {
         return progress.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/item-library/{itemLibraryId}")
-    public ResponseEntity<ProgressDTO> findByItemLibraryId(@PathVariable Integer itemLibraryId) {
-        Optional<ProgressDTO> progress = progressService.findByItemLibraryId(itemLibraryId)
+    @GetMapping("/game/{gameId}")
+    public ResponseEntity<ProgressDTO> findByGameId(@PathVariable Integer gameId) {
+        Optional<ProgressDTO> progress = progressService.findByGameId(gameId)
                 .map(progressMapper::toDTO);
         return progress.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/library/{libraryId}/search")
-    public ResponseEntity<List<ProgressDTO>> findAllByLibraryIdAndStatus(@PathVariable Integer libraryId,
-            @RequestParam String status) {
-        List<ProgressDTO> progressList = progressService.findAllByLibraryIdAndStatus(libraryId, status).stream()
+    @GetMapping("/search")
+    public ResponseEntity<List<ProgressDTO>> findAllByStatus(@RequestParam String status) {
+        List<ProgressDTO> progressList = progressService.findAllByStatus(status).stream()
                 .map(progressMapper::toDTO)
                 .toList();
         return ResponseEntity.ok(progressList);

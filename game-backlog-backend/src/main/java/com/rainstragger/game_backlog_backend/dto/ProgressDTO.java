@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public record ProgressDTO(
     Integer id,
-    Integer itemLibraryId,
+    Integer gameId,
     String status,
     LocalDate startedAt,
     LocalDate completedAt,

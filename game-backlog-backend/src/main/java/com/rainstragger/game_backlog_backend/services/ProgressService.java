@@ -6,33 +6,34 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.rainstragger.game_backlog_backend.entities.Progress;
-import com.rainstragger.game_backlog_backend.repository.ItemLibraryRepository;
+import com.rainstragger.game_backlog_backend.enums.ProgressEnum;
+import com.rainstragger.game_backlog_backend.repository.GamesRepository;
 import com.rainstragger.game_backlog_backend.repository.ProgressRepository;
 
 @Service
 public class ProgressService {
     private final ProgressRepository progressRepository;
-    private final ItemLibraryRepository itemLibraryRepository;
+    private final GamesRepository gamesRepository;
 
-    public ProgressService(ProgressRepository progressRepository, ItemLibraryRepository itemLibraryRepository) {
+    public ProgressService(ProgressRepository progressRepository, GamesRepository gamesRepository) {
         this.progressRepository = progressRepository;
-        this.itemLibraryRepository = itemLibraryRepository;
+        this.gamesRepository = gamesRepository;
     }
 
-    public List<Progress> findAllByLibraryId(Integer libraryId) {
-        return progressRepository.findAllByItemLibrary_LibraryId_Id(libraryId);
+    public List<Progress> findAll() {
+        return progressRepository.findAll();
     }
 
-    public List<Progress> findAllByLibraryIdAndStatus(Integer libraryId, String status) {
-        return progressRepository.findAllByItemLibrary_LibraryId_IdAndStatusIgnoreCase(libraryId, status);
+    public List<Progress> findAllByStatus(String status) {
+        return progressRepository.findAllByStatus(ProgressEnum.valueOf(status.toUpperCase()));
     }
 
     public Optional<Progress> findById(Integer id) {
         return progressRepository.findById(id);
     }
 
-    public Optional<Progress> findByItemLibraryId(Integer itemLibraryId) {
-        return progressRepository.findByItemLibrary_Id(itemLibraryId);
+    public Optional<Progress> findByGameId(Integer gameId) {
+        return progressRepository.findByGame_Id(gameId);
     }
 
     public Progress create(Progress progress) {
@@ -40,16 +41,16 @@ public class ProgressService {
             throw new IllegalArgumentException("Progress already exists");
         }
 
-        Integer itemLibraryId = progress.getItemLibrary().getId();
-        boolean itemLibraryExists = itemLibraryRepository.findById(itemLibraryId).isPresent();
-        boolean progressAlreadyExists = progressRepository.findByItemLibrary_Id(itemLibraryId).isPresent();
+        Integer gameId = progress.getGame().getId();
+        boolean gameExists = gamesRepository.findById(gameId).isPresent();
+        boolean progressAlreadyExists = progressRepository.findByGame_Id(gameId).isPresent();
 
-        if (!itemLibraryExists) {
-            throw new IllegalArgumentException("Item Library not found");
+        if (!gameExists) {
+            throw new IllegalArgumentException("Game not found");
         }
 
         if (progressAlreadyExists) {
-            throw new IllegalArgumentException("Progress already exists for this Item Library");
+            throw new IllegalArgumentException("Progress already exists for this game");
         }
 
         return progressRepository.save(progress);

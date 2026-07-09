@@ -5,12 +5,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.rainstragger.game_backlog_backend.enums.ProgressEnum;
 import com.rainstragger.game_backlog_backend.entities.Progress;
 
 public interface ProgressRepository extends JpaRepository<Progress, Integer> {
-    Optional<Progress> findByItemLibrary_Id(Integer itemLibraryId);
+    Optional<Progress> findByGame_Id(Integer gameId);
 
-    List<Progress> findAllByItemLibrary_LibraryId_Id(Integer libraryId);
-
-    List<Progress> findAllByItemLibrary_LibraryId_IdAndStatusIgnoreCase(Integer libraryId, String status);
+    List<Progress> findAllByStatus(ProgressEnum status);
 }

@@ -25,8 +25,8 @@ public class Progress {
     private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_library_id", nullable = false, unique = true)
-    private ItemLibrary itemLibrary;
+    @JoinColumn(name = "game_id", nullable = false, unique = true)
+    private Games game;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -49,12 +49,12 @@ public class Progress {
         this.id = id;
     }
 
-    public ItemLibrary getItemLibrary() {
-        return itemLibrary;
+    public Games getGame() {
+        return game;
     }
 
-    public void setItemLibrary(ItemLibrary itemLibrary) {
-        this.itemLibrary = itemLibrary;
+    public void setGame(Games game) {
+        this.game = game;
     }
 
     public ProgressEnum getStatus() {
