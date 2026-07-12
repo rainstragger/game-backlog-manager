@@ -11,8 +11,4 @@ export interface Games {
     recomReq?: string;
     coverId?: number;
     createdAt?: string;
-    
-    
-    
-    
 }

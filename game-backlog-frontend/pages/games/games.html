@@ -1,1 +1,17 @@
-<div></div>
+<main class="d-flex container">
+    <div class="flex-row">
+        <div class="flex-col">
+            @for(g of games(); track g.id){
+                <div class="card p-3 mb-3" style="width: 18rem;">
+                    <h5 class="card-title card-header text-center mb-3">{{g.name}}</h5>
+                    @if(g.coverId !== null){
+                        <img class="card-img-top" src="{{g.coverId}}" alt="{{g.name}}">
+                    }@else{
+                        <img class="card-img-top" src="/game-generic-cover.png" alt="{{g.name}}">
+                    }
+                    <p class="card-text small">{{g.resume}}</p>
+                </div>
+            }
+        </div>
+    </div>
+</main>

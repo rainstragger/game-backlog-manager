@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit, signal} from '@angular/core';
 import { Router } from '@angular/router';
+import { Games } from '../../models/games';
+import { GamesService } from '../../services/games.service';
 
 @Component({
   selector: 'games',
@@ -8,19 +10,28 @@ import { Router } from '@angular/router';
   templateUrl: './games.html',
   styleUrl: './games.css',
 })
-export class GamesComponent {
-games: Games[] = [];
-data: any[] = [];
+export class GamesComponent implements OnInit {
+  games = signal<Games[]>([]);
 
-private constructor(
-  private http: HttpClient,
-  private router: Router,
-) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private gameService: GamesService
+  ) {}
 
-getGames() {
-  this.http.get<any[]>('/games').subscribe((res) => {
-    this.data = res;
-  });
-}
+  ngOnInit(): void {
+    this.loadAllGames();
+  }
 
+  loadAllGames(): void {
+    this.gameService.getAllGames().subscribe({
+      next: (games) => {
+        this.games.set(games);
+        console.log(this.games);
+      },
+      error: (err) => {
+        console.error("Games can't be loaded: ", err);
+      }
+    });
+  }
 }
