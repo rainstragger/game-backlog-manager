@@ -1,0 +1,11 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+:root {
+    --bs-body-font-family: "Space Grotesk", sans-serif;
+}
+
+body {
+    background-color: #0D1418;
+    font-family: var(--bs-body-font-family);
+}

@@ -1,0 +1,194 @@
+.backlog-navbar {
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(circle at top left, rgba(103, 209, 184, 0.16), transparent 16rem),
+        linear-gradient(180deg, #112028 0%, #0c1519 100%);
+    min-height: 100vh;
+    width: 18rem;
+    padding: 1.1rem;
+    border-right: 1px solid rgba(103, 209, 184, 0.2);
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.02);
+}
+
+.backlog-navbar-shell {
+    min-height: calc(100vh - 2.2rem);
+}
+
+.backlog-navbar-brand {
+    display: flex;
+    width: 100%;
+    margin-right: 0;
+    justify-content: center;
+    padding: 0.2rem 0 0.35rem;
+}
+
+.brand-logo {
+    max-width: 7.5rem;
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+}
+
+.nav-section-label {
+    margin: 1.5rem 0 0.8rem;
+    color: #7f95a0;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+}
+
+.backlog-nav-list {
+    margin-bottom: 0;
+}
+
+.backlog-navbar .nav-link {
+    padding: 0.95rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 1.15rem;
+    color: #8ea3ad;
+    background-color: rgba(255, 255, 255, 0.02);
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.backlog-navbar .nav-link:hover,
+.backlog-navbar .nav-link:focus {
+    color: #dffcf4;
+    border-color: rgba(103, 209, 184, 0.24);
+    background-color: rgba(103, 209, 184, 0.08);
+    transform: translateX(3px);
+}
+
+.nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 0.95rem;
+    background: linear-gradient(180deg, rgba(103, 209, 184, 0.16), rgba(255, 255, 255, 0.03));
+    color: #8ff2dc;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+
+.nav-copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.nav-title {
+    color: #eef9ff;
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.nav-caption {
+    color: #7f95a0;
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+.nav-arrow {
+    margin-left: auto;
+    color: #59717d;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.backlog-navbar .nav-link:hover,
+.backlog-navbar .nav-link.active {
+    color: #67d1b8;
+}
+
+.backlog-navbar .nav-link:hover .nav-arrow,
+.backlog-navbar .nav-link:focus .nav-arrow,
+.backlog-navbar .nav-link.active .nav-arrow {
+    color: #8ff2dc;
+    transform: translate(2px, -2px);
+}
+
+.backlog-navbar .nav-link.active {
+    border-color: rgba(103, 209, 184, 0.42);
+    background:
+        linear-gradient(90deg, rgba(103, 209, 184, 0.16), rgba(255, 255, 255, 0.03)),
+        rgba(255, 255, 255, 0.02);
+    box-shadow: 0 0 0 1px rgba(103, 209, 184, 0.08), 0 16px 28px rgba(0, 0, 0, 0.18);
+}
+
+.backlog-navbar .nav-link.active .nav-icon {
+    background: linear-gradient(180deg, rgba(103, 209, 184, 0.28), rgba(103, 209, 184, 0.08));
+    color: #dffcf4;
+    box-shadow: 0 0 18px rgba(103, 209, 184, 0.12);
+}
+
+.backlog-navbar .nav-link.active .nav-caption {
+    color: #b3c5cd;
+}
+
+.navbar-footer {
+    padding-top: 1.5rem;
+}
+
+.footer-label {
+    color: #7f95a0;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+}
+
+.footer-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1rem;
+    border: 1px solid rgba(103, 209, 184, 0.18);
+    background: linear-gradient(180deg, rgba(15, 26, 31, 0.95), rgba(10, 19, 23, 0.95));
+}
+
+.footer-title {
+    color: #eff9ff;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.footer-text {
+    color: #7f95a0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 991.98px) {
+    .backlog-navbar {
+        width: 15.5rem;
+        padding: 0.9rem;
+    }
+
+    .backlog-navbar-shell {
+        min-height: calc(100vh - 1.8rem);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .backlog-navbar {
+        width: 100%;
+        min-height: auto;
+        position: relative;
+    }
+
+    .backlog-navbar-shell {
+        min-height: auto;
+    }
+
+    .navbar-footer {
+        display: none;
+    }
+}

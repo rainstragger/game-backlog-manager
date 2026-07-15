@@ -1,0 +1,150 @@
+<div class="game-details-shell border rounded-4 d-flex flex-column" (click)="$event.stopPropagation()">
+    <div class="game-details-header p-4 p-lg-5">
+        <div class="d-flex justify-content-between align-items-start gap-3">
+            <div>
+                <p class="small text-uppercase fw-semibold letter-spacing mb-2">Game details</p>
+                <h2 class="h3 text-white mb-0">{{ game?.name }}</h2>
+            </div>
+
+            <button class="btn btn-outline-light" type="button" (click)="closeOverlay.emit()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="game-details-body px-4 px-lg-5">
+        <div class="row g-4 align-items-start">
+            <div class="col-12 col-xl-4">
+                <div class="details-panel border rounded-4 overflow-hidden">
+                    <img class="overlay-cover img-fluid" [src]="placeholderCover" [alt]="game?.name || 'Game cover'" />
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-8">
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    @if (game?.genre) {
+                        <span class="badge rounded-pill text-bg-dark border border-secondary-subtle">{{ game?.genre }}</span>
+                    }
+                    <span class="badge rounded-pill detail-badge">{{ game?.publisher || 'Publisher pending' }}</span>
+                </div>
+
+                <p class="lead text-white-50 mb-4">
+                    {{ game?.resume || 'No full description has been provided for this game yet.' }}
+                </p>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-md-6">
+                        <div class="details-panel border rounded-4 p-3 h-100">
+                            <p class="small text-uppercase fw-semibold letter-spacing mb-2">Developer</p>
+                            <p class="mb-0 text-white">{{ game?.developer || 'Not informed' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="details-panel border rounded-4 p-3 h-100">
+                            <p class="small text-uppercase fw-semibold letter-spacing mb-2">Launch date</p>
+                            <p class="mb-0 text-white">{{ game?.launchDate ? (game?.launchDate | date: 'longDate') : 'Unknown date' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="details-panel border rounded-4 p-3 h-100">
+                            <p class="small text-uppercase fw-semibold letter-spacing mb-2">Minimum requirements</p>
+                            <p class="mb-0 text-white">{{ game?.minReq || 'Not informed' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="details-panel border rounded-4 p-3 h-100">
+                            <p class="small text-uppercase fw-semibold letter-spacing mb-2">Recommended requirements</p>
+                            <p class="mb-0 text-white">{{ game?.recomReq || 'Not informed' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-panel border rounded-4 p-4">
+                    <div class="d-flex flex-wrap justify-content-between gap-3 align-items-start mb-3">
+                        <div>
+                            <p class="small text-uppercase fw-semibold letter-spacing mb-2">Progress</p>
+                            <p class="mb-0 text-secondary-emphasis">
+                                Update the current game state from the same overlay.
+                            </p>
+                        </div>
+
+                        @if (isLoadingProgress) {
+                            <span class="spinner-border spinner-border-sm text-info mt-2" aria-hidden="true"></span>
+                        }
+                    </div>
+
+                    <form class="row g-3" [formGroup]="progressForm" (ngSubmit)="saveProgress.emit()">
+                        <div class="col-12 col-lg-5">
+                            <label class="form-label text-white" for="progress-status">Status</label>
+                            <select id="progress-status" class="form-select form-select-lg" formControlName="status">
+                                @for (status of progressStatuses; track status) {
+                                    <option [value]="status">{{ status }}</option>
+                                }
+                            </select>
+                            @if (statusControlInvalid) {
+                                <div class="form-text text-danger">Select a valid progress status.</div>
+                            }
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <label class="form-label text-white" for="progress-started-at">Started at</label>
+                            <input
+                                id="progress-started-at"
+                                class="form-control form-control-lg"
+                                type="date"
+                                formControlName="startedAt"
+                            />
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <label class="form-label text-white" for="progress-completed-at">Completed at</label>
+                            <input
+                                id="progress-completed-at"
+                                class="form-control form-control-lg"
+                                type="date"
+                                formControlName="completedAt"
+                            />
+                        </div>
+
+                        <div class="col-12 d-flex flex-wrap gap-3 pt-2">
+                            <button class="btn btn-info px-4" type="submit" [disabled]="isSavingProgress || isLoadingProgress">
+                                @if (isSavingProgress) {
+                                    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                }
+                                Save progress
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-details-footer px-4 px-lg-5 py-4">
+        <div class="d-flex flex-wrap gap-3 justify-content-end">
+            @if (showItemLibraryDelete) {
+                <button class="btn btn-outline-danger px-4" type="button" (click)="deleteItemLibrary.emit()" [disabled]="isDeletingItemLibrary">
+                    @if (isDeletingItemLibrary) {
+                        <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                    }
+                    <i class="bi bi-x-octagon me-2"></i>
+                    Remove from library
+                </button>
+            }
+
+            @if (showGameActions) {
+                <button class="btn btn-info px-4" type="button" (click)="editGame.emit()">
+                    <i class="bi bi-pencil-square me-2"></i>
+                    Edit game
+                </button>
+                <button class="btn btn-outline-danger px-4" type="button" (click)="deleteGame.emit()" [disabled]="isDeletingGame">
+                    @if (isDeletingGame) {
+                        <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                    }
+                    <i class="bi bi-trash3 me-2"></i>
+                    Delete game
+                </button>
+            }
+        </div>
+    </div>
+</div>
