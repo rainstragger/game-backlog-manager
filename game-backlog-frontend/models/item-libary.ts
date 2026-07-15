@@ -1,11 +1,13 @@
 import { Games } from "./games";
 import { Library } from "./library";
 
-export interface ItemLibary {
+export interface ItemLibrary {
     id?: number;
-    libary?: Library;
+    library?: Library;
     libraryId?: number;
-    games?: Games;
+    game?: Games;
     gameId?: number;
     createdAt?: string;
 }
+
+export type ItemLibary = ItemLibrary;

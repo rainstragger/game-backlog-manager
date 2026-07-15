@@ -1,0 +1,215 @@
+:host {
+    display: block;
+}
+
+.library-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top right, rgba(103, 209, 184, 0.18), transparent 22rem),
+        linear-gradient(180deg, #081015 0%, #0d1418 100%);
+    color: #c5d2db;
+}
+
+.library-page .text-secondary-emphasis {
+    color: #9eb0ba !important;
+}
+
+.library-hero,
+.library-panel,
+.game-card,
+.empty-items,
+.library-overlay-card,
+.selection-card {
+    background-color: rgba(15, 26, 31, 0.92);
+    border-color: rgba(103, 209, 184, 0.22) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.library-hero {
+    background-image: linear-gradient(135deg, rgba(103, 209, 184, 0.12), rgba(9, 17, 21, 0.96));
+}
+
+.library-panel-expanded {
+    border-color: rgba(103, 209, 184, 0.45) !important;
+}
+
+.library-trigger {
+    border: 0;
+    background: transparent;
+    color: inherit;
+}
+
+.library-title,
+.library-trigger,
+.library-panel,
+.game-card {
+    transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.library-panel:hover,
+.library-panel:focus-within {
+    transform: translateY(-2px);
+}
+
+.library-trigger:hover .library-title,
+.library-trigger:focus .library-title {
+    color: #7de7d0;
+}
+
+.library-divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(103, 209, 184, 0), rgba(103, 209, 184, 0.9), rgba(103, 209, 184, 0));
+}
+
+.library-badge {
+    background-color: rgba(103, 209, 184, 0.14);
+    border: 1px solid rgba(103, 209, 184, 0.25);
+    color: #aaf3e2;
+}
+
+.letter-spacing {
+    letter-spacing: 0.18em;
+}
+
+.game-card {
+    background-image: linear-gradient(180deg, rgba(23, 36, 42, 0.95), rgba(11, 20, 24, 0.95));
+}
+
+.selection-card {
+    background-image: linear-gradient(180deg, rgba(23, 36, 42, 0.95), rgba(11, 20, 24, 0.95));
+    color: inherit;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.selection-card:hover,
+.selection-card:focus {
+    transform: translateY(-2px);
+    border-color: rgba(103, 209, 184, 0.4) !important;
+}
+
+.selection-card-active {
+    border-color: rgba(103, 209, 184, 0.65) !important;
+    background-image: linear-gradient(180deg, rgba(42, 73, 67, 0.95), rgba(11, 20, 24, 0.95));
+}
+
+.selection-card-disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.game-cover-wrapper {
+    min-height: 100%;
+    background: linear-gradient(180deg, rgba(103, 209, 184, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.game-cover {
+    width: 100%;
+    height: 100%;
+    min-height: 12rem;
+    object-fit: cover;
+}
+
+.empty-items {
+    border: 1px dashed rgba(103, 209, 184, 0.26);
+}
+
+.library-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(3, 8, 10, 0.78);
+    backdrop-filter: blur(8px);
+}
+
+.library-overlay-card {
+    width: min(72rem, 100%);
+    height: min(48rem, calc(100vh - 3rem));
+    overflow: hidden;
+}
+
+.library-overlay-header {
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(103, 209, 184, 0.14);
+}
+
+.library-overlay-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.library-overlay-footer {
+    flex-shrink: 0;
+    border-top: 1px solid rgba(103, 209, 184, 0.14);
+    background: linear-gradient(180deg, rgba(13, 23, 27, 0.96), rgba(10, 19, 23, 0.98));
+}
+
+.overlay-game-cover {
+    width: 5rem;
+    height: 6.75rem;
+    object-fit: cover;
+    background: linear-gradient(180deg, rgba(103, 209, 184, 0.08), rgba(255, 255, 255, 0.02));
+    flex-shrink: 0;
+}
+
+.overlay-skeleton-cover {
+    width: 5rem;
+    height: 6.75rem;
+    flex-shrink: 0;
+}
+
+.form-control,
+.form-control:focus {
+    background-color: rgba(8, 16, 21, 0.92);
+    border-color: rgba(103, 209, 184, 0.22);
+    color: #e6edf3;
+    box-shadow: none;
+}
+
+.form-control::placeholder {
+    color: #7d8d96;
+}
+
+.alert-success {
+    background-color: rgba(25, 135, 84, 0.18);
+    color: #b8f0d1;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.18);
+    color: #ffcad1;
+}
+
+@media (max-width: 991.98px) {
+    .library-page {
+        padding-bottom: 2rem;
+    }
+
+    .library-overlay {
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .library-overlay-card {
+        height: calc(100vh - 2rem);
+    }
+
+    .library-overlay-footer .d-flex {
+        align-items: stretch !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .library-overlay-header,
+    .library-overlay-body,
+    .library-overlay-footer {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}

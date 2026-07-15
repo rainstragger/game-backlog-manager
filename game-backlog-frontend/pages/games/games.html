@@ -1,17 +1,236 @@
-<main class="d-flex container">
-    <div class="flex-row">
-        <div class="flex-col">
-            @for(g of games(); track g.id){
-                <div class="card p-3 mb-3" style="width: 18rem;">
-                    <h5 class="card-title card-header text-center mb-3">{{g.name}}</h5>
-                    @if(g.coverId !== null){
-                        <img class="card-img-top" src="{{g.coverId}}" alt="{{g.name}}">
-                    }@else{
-                        <img class="card-img-top" src="/game-generic-cover.png" alt="{{g.name}}">
+<section class="games-page">
+    <div class="container-fluid px-4 px-xxl-5 py-4 py-lg-5">
+        <div class="row g-4 align-items-stretch mb-4">
+            <div class="col-12 col-xl-8">
+                <div class="games-hero border rounded-4 h-100 p-4 p-lg-5">
+                    <p class="small text-uppercase fw-semibold letter-spacing mb-3">Games Vault</p>
+                    <h1 class="display-6 text-white fw-semibold mb-3">Explore Your Games</h1>
+                    <p class="mb-0 text-secondary-emphasis">
+                        Browse the full catalog, search by term, and open any game to inspect
+                        the complete description inside a focused overlay.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-3 align-items-center mt-4">
+                        <button class="btn btn-info px-4 py-2 fw-semibold" type="button" (click)="openCreateOverlay()">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Add game
+                        </button>
+
+                        <span class="badge rounded-pill games-badge px-3 py-2">
+                            {{ resultLabel() }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+                <div class="games-panel border rounded-4 h-100 p-4">
+                    <p class="small text-uppercase fw-semibold letter-spacing mb-3">Search Flow</p>
+                    <form class="d-grid gap-3" [formGroup]="searchForm" (ngSubmit)="submitSearch()">
+                        <div>
+                            <label class="form-label text-white" for="games-search">Search by term</label>
+                            <input
+                                id="games-search"
+                                class="form-control form-control-lg"
+                                type="search"
+                                formControlName="term"
+                                placeholder="Type a game title, genre, or studio"
+                            />
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-info" type="submit">Search</button>
+                            <button class="btn btn-outline-light" type="button" (click)="clearSearch()">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        @if (statusMessage()) {
+            <div class="alert alert-success border-0 rounded-4 mb-4" role="status">
+                {{ statusMessage() }}
+            </div>
+        }
+
+        @if (errorMessage()) {
+            <div class="alert alert-danger border-0 rounded-4 mb-4" role="alert">
+                {{ errorMessage() }}
+            </div>
+        }
+
+        <main class="d-grid gap-4">
+            @if (isLoadingGames()) {
+                <div class="row g-4">
+                    @for (_ of [1, 2, 3, 4]; track $index) {
+                        <div class="col-12 col-sm-6 col-xl-4 col-xxl-3">
+                            <div class="games-panel border rounded-4 p-3 placeholder-wave h-100">
+                                <div class="placeholder rounded-4 w-100 games-skeleton-cover mb-3"></div>
+                                <div class="placeholder rounded-pill col-4 mb-3"></div>
+                                <div class="placeholder rounded-3 col-8 mb-2"></div>
+                                <div class="placeholder rounded-3 col-10"></div>
+                            </div>
+                        </div>
                     }
-                    <p class="card-text small">{{g.resume}}</p>
+                </div>
+            } @else if (!games().length && !errorMessage()) {
+                <div class="games-panel border rounded-4 p-5 text-center">
+                    <p class="small text-uppercase fw-semibold letter-spacing mb-3">Empty state</p>
+                    <h2 class="h3 text-white mb-3">No games found</h2>
+                    <p class="text-secondary-emphasis mb-4">
+                        Add your first game or search with a different term to populate the catalog.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-info px-4" type="button" (click)="openCreateOverlay()">
+                            Add your first game
+                        </button>
+                    </div>
+                </div>
+            } @else if (!games().length && errorMessage()) {
+                <div class="games-panel border rounded-4 p-5 text-center">
+                    <p class="small text-uppercase fw-semibold letter-spacing mb-3">Connection issue</p>
+                    <h2 class="h3 text-white mb-3">Games could not be loaded</h2>
+                    <p class="text-secondary-emphasis mb-4">
+                        The page is ready, but the catalog depends on the backend connection to return real data.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <button class="btn btn-outline-light px-4" type="button" (click)="loadAllGames()">
+                            Try again
+                        </button>
+                        <button class="btn btn-info px-4" type="button" (click)="openCreateOverlay()">
+                            Add game anyway
+                        </button>
+                    </div>
+                </div>
+            } @else {
+                <div class="row g-4">
+                    @for (game of games(); track trackByGameId($index, game)) {
+                        <div class="col-12 col-sm-6 col-xl-4 col-xxl-3">
+                            <button class="game-card card border-0 h-100 overflow-hidden text-start w-100" type="button" (click)="openDetailsOverlay(game)">
+                                <div class="game-cover-shell position-relative">
+                                    <img class="game-cover img-fluid" [src]="placeholderCover" [alt]="game.name" />
+                                    <span class="badge rounded-pill position-absolute top-0 end-0 m-3 games-badge-subtle">
+                                        {{ coverLabel(game) }}
+                                    </span>
+                                </div>
+
+                                <div class="card-body p-4">
+                                    <p class="small text-uppercase fw-semibold letter-spacing mb-2">Game card</p>
+                                    <h2 class="h4 text-white mb-2">{{ game.name }}</h2>
+                                    <p class="small text-secondary-emphasis mb-3">{{ formatSummary(game) }}</p>
+
+                                    <div class="d-grid gap-2 small text-secondary-emphasis">
+                                        <span>Developer: {{ game.developer || 'Not informed' }}</span>
+                                        <span>Publisher: {{ game.publisher || 'Not informed' }}</span>
+                                        <span>Launch: {{ game.launchDate ? (game.launchDate | date: 'longDate') : 'Unknown date' }}</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    }
                 </div>
             }
-        </div>
+        </main>
     </div>
-</main>
+
+    @if (overlayMode()) {
+        <div class="games-overlay" (click)="closeOverlay()">
+            @if (overlayMode() === 'details') {
+                <game-details-overlay
+                    [game]="selectedGame()"
+                    [progressForm]="progressForm"
+                    [progressStatuses]="progressStatusOptions"
+                    [placeholderCover]="placeholderCover"
+                    [isSavingProgress]="isSavingProgress()"
+                    [isDeletingGame]="isDeletingGame()"
+                    [isLoadingProgress]="isLoadingProgress()"
+                    [showGameActions]="true"
+                    (closeOverlay)="closeOverlay()"
+                    (editGame)="openEditOverlay()"
+                    (deleteGame)="removeGame()"
+                    (saveProgress)="saveProgress()"
+                />
+                } @else {
+                    <div class="games-overlay-card border rounded-4 p-4 p-lg-5" (click)="$event.stopPropagation()">
+                        <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+                            <div>
+                                <p class="small text-uppercase fw-semibold letter-spacing mb-2">
+                                    {{
+                                        overlayMode() === 'create'
+                                            ? 'Create game'
+                                            : 'Edit game'
+                                    }}
+                                </p>
+                                <h2 class="h3 text-white mb-0">
+                                    {{
+                                        overlayMode() === 'create'
+                                            ? 'Add a new title to your catalog'
+                                            : 'Update the selected game'
+                                    }}
+                                </h2>
+                            </div>
+
+                            <button class="btn btn-outline-light" type="button" (click)="closeOverlay()">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+
+                    <form class="row g-3" [formGroup]="gameForm" (ngSubmit)="submitGame()">
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label text-white" for="game-name">Name</label>
+                            <input id="game-name" class="form-control form-control-lg" type="text" formControlName="name" placeholder="Ex.: Hollow Knight" />
+                            @if (gameForm.controls.name.invalid && gameForm.controls.name.touched) {
+                                <div class="form-text text-danger">Enter a game name with up to 80 characters.</div>
+                            }
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label text-white" for="game-genre">Genre</label>
+                            <input id="game-genre" class="form-control form-control-lg" type="text" formControlName="genre" placeholder="Action RPG" />
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label text-white" for="game-developer">Developer</label>
+                            <input id="game-developer" class="form-control form-control-lg" type="text" formControlName="developer" placeholder="FromSoftware" />
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label text-white" for="game-publisher">Publisher</label>
+                            <input id="game-publisher" class="form-control form-control-lg" type="text" formControlName="publisher" placeholder="Bandai Namco" />
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label text-white" for="game-launch-date">Launch date</label>
+                            <input id="game-launch-date" class="form-control form-control-lg" type="date" formControlName="launchDate" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label text-white" for="game-resume">Description</label>
+                            <textarea id="game-resume" class="form-control form-control-lg" rows="5" formControlName="resume" placeholder="Write the complete game description"></textarea>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label text-white" for="game-min-req">Minimum requirements</label>
+                            <textarea id="game-min-req" class="form-control" rows="3" formControlName="minReq" placeholder="CPU, RAM, GPU, storage"></textarea>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label text-white" for="game-recom-req">Recommended requirements</label>
+                            <textarea id="game-recom-req" class="form-control" rows="3" formControlName="recomReq" placeholder="Recommended setup"></textarea>
+                        </div>
+
+                        <div class="col-12 d-flex flex-wrap gap-3 pt-2">
+                            <button class="btn btn-info px-4" type="submit" [disabled]="isSavingGame()">
+                                @if (isSavingGame()) {
+                                    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                }
+                                {{ overlayMode() === 'create' ? 'Create game' : 'Save changes' }}
+                            </button>
+                            <button class="btn btn-outline-light" type="button" (click)="closeOverlay()">Cancel</button>
+                        </div>
+                    </form>
+                    </div>
+                }
+        </div>
+    }
+</section>

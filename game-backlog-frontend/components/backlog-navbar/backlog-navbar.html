@@ -1,28 +1,53 @@
 <nav class="navbar backlog-navbar flex-column align-items-start sticky-top">
-    <a class="navbar-brand backlog-navbar_brand mb-4" routerLink="/">
-        <img class="img-fluid" src="logo-generated-sem-fundo.png" alt="Game Backlog Manager">
-    </a>
+    <div class="backlog-navbar-shell w-100 d-flex flex-column h-100">
+        <a class="navbar-brand backlog-navbar-brand mb-4 text-decoration-none" routerLink="/">
+            <img class="img-fluid brand-logo" src="logo-generated-sem-fundo.png" alt="Game Backlog Manager">
+        </a>
 
-    <ul class="nav flex-column w-100">
-        <li class="nav-item">
-            <a
-                class="nav-link d-flex align-items-center px-0"
-                routerLink="/games"
-                routerLinkActive="active"
-            >
-                <i class="bi bi-controller me-2"></i>
-                <span>Games</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link d-flex align-items-center px-0"
-                routerLink="/library"
-                routerLinkActive="active"
-            >
-                <i class="bi bi-book me-2"></i>
-                <span>Library</span>
-            </a>
-        </li>
-    </ul>
+        <div class="nav-section-label">Navigation</div>
+
+        <ul class="nav flex-column backlog-nav-list w-100 gap-2">
+            <li class="nav-item">
+                <a
+                    class="nav-link d-flex align-items-center gap-3"
+                    routerLink="/"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                >
+                    <span class="nav-icon">
+                        <i class="bi bi-controller"></i>
+                    </span>
+                    <span class="nav-copy">
+                        <span class="nav-title">Games</span>
+                        <span class="nav-caption">Browse catalog</span>
+                    </span>
+                    <i class="bi bi-arrow-up-right nav-arrow"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link d-flex align-items-center gap-3"
+                    routerLink="/library"
+                    routerLinkActive="active"
+                >
+                    <span class="nav-icon">
+                        <i class="bi bi-book"></i>
+                    </span>
+                    <span class="nav-copy">
+                        <span class="nav-title">Library</span>
+                        <span class="nav-caption">Manage shelves</span>
+                    </span>
+                    <i class="bi bi-arrow-up-right nav-arrow"></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="navbar-footer mt-auto w-100">
+            <p class="footer-label mb-2">Current Theme</p>
+            <div class="footer-card rounded-4">
+                <span class="footer-title">International MVP</span>
+                <span class="footer-text">Clean navigation, stronger hierarchy, same signature logo.</span>
+            </div>
+        </div>
+    </div>
 </nav>

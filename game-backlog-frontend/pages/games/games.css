@@ -1,7 +1,127 @@
-main{
-    background-color: red;
+:host {
+    display: block;
 }
 
-p{
-    color: black;
+.games-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top right, rgba(103, 209, 184, 0.16), transparent 24rem),
+        linear-gradient(180deg, #081015 0%, #0d1418 100%);
+    color: #c5d2db;
+}
+
+.games-page .text-secondary-emphasis {
+    color: #9eb0ba !important;
+}
+
+.games-hero,
+.games-panel,
+.game-card,
+.games-overlay-card {
+    background-color: rgba(15, 26, 31, 0.92);
+    border-color: rgba(103, 209, 184, 0.22) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.games-hero {
+    background-image: linear-gradient(135deg, rgba(103, 209, 184, 0.12), rgba(9, 17, 21, 0.96));
+}
+
+.games-badge,
+.games-badge-subtle {
+    background-color: rgba(103, 209, 184, 0.14);
+    border: 1px solid rgba(103, 209, 184, 0.25);
+    color: #aaf3e2;
+}
+
+.games-badge-subtle {
+    color: #d5fff3;
+}
+
+.letter-spacing {
+    letter-spacing: 0.18em;
+}
+
+.game-card {
+    background-image: linear-gradient(180deg, rgba(23, 36, 42, 0.95), rgba(11, 20, 24, 0.95));
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.game-card:hover,
+.game-card:focus {
+    transform: translateY(-4px);
+    border-color: rgba(103, 209, 184, 0.45) !important;
+}
+
+.game-cover-shell {
+    min-height: 16rem;
+    background: linear-gradient(180deg, rgba(103, 209, 184, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.game-cover,
+.overlay-cover {
+    width: 100%;
+    height: 100%;
+    min-height: 16rem;
+    object-fit: cover;
+}
+
+.overlay-cover {
+    min-height: 22rem;
+}
+
+.games-skeleton-cover {
+    min-height: 16rem;
+}
+
+.games-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(3, 8, 10, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+.games-overlay-card {
+    width: min(70rem, 100%);
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+}
+
+.form-control,
+.form-control:focus {
+    background-color: rgba(8, 16, 21, 0.92);
+    border-color: rgba(103, 209, 184, 0.22);
+    color: #e6edf3;
+    box-shadow: none;
+}
+
+.form-control::placeholder,
+textarea::placeholder {
+    color: #7d8d96;
+}
+
+.alert-success {
+    background-color: rgba(25, 135, 84, 0.18);
+    color: #b8f0d1;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.18);
+    color: #ffcad1;
+}
+
+@media (max-width: 991.98px) {
+    .games-overlay {
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .games-overlay-card {
+        max-height: calc(100vh - 2rem);
+    }
 }
