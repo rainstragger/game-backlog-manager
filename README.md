@@ -8,6 +8,14 @@ Game Backlog Manager is a full stack application designed to help users organize
 
 It is also a personal study project built to practice backend structure, frontend integration, database modeling, and clean project organization.
 
+The project combines:
+- a complete game catalog
+- custom libraries for grouping games
+- a global progress flow per game
+- a modern dark UI designed as a portfolio-ready MVP
+
+It is also a study and portfolio project focused on clean backend structure, Angular frontend architecture, REST integration, and scalable feature organization.
+
 ---
 
 ## 🚧 Current Status
@@ -26,63 +34,111 @@ The backend foundation is already working, and the main core resources are alrea
 
 ---
 
-## 🎯 Objective
-The main idea of this project is to build something that feels like a real product while serving as a hands-on learning experience.
+## 🕹️ What The MVP Already Covers
 
-- Provide a user-friendly interface for managing a gaming library
-- Track completed games, playtime, and achievement progress
-- Allow users to add, update, and delete games from their library
+### Games
+- Add a game to the catalog
+- List all games
+- Search games by term
+- Open a modal-like details overlay
+- Edit a game
+- Delete a game
 
----
-
-## 🕹️ MVP
-The first version focuses on the essential game catalog and backlog flow:
-
-- Register a game
-- List all games in the catalog
-- See game details such as genre, release date, developer, and publisher
-- Update game details
-- Delete a game from the catalog
+### Libraries
 - Create libraries
-- Add a game to a library
-- Track the game progress status
+- Edit libraries
+- Delete libraries
+- Expand a library to reveal linked items
+- Add games to a library through an overlay
+- Remove a linked game from a library
+
+### Progress
+- Load progress by game
+- Create progress when it does not exist yet
+- Update progress when it already exists
+- Control progress status from the UI
+- Edit `startedAt` and `completedAt` directly in the overlay
 
 ---
 
-## 🛣️ Roadmap
-After the MVP, the project can grow into a more complete backlog platform:
+## 🎨 Frontend Experience
+The current frontend follows a consistent international MVP direction:
 
-- Register a user account
-- Login to the account
-- Logout of the account
-- See the playtime of the user, for each game and a total playtime
-- See each player's library
-- Add game achievements
-- Add game cover
-- Add game tags
-- Add game comments
-- Add game ratings
-- Add game reviews
-- Read APIs to get multiple game accounts to track players progress, achievements, and time spent
-- Add playtime and session tracking
-- Refine progress rules and historical progress updates
+- dark teal visual identity
+- Bootstrap as the main styling base
+- custom overlays for focused interactions
+- sidebar navigation with improved visual hierarchy
+- reusable detail overlay shared between catalog and library flows
+
+At the moment, game covers are still handled with placeholders in the UI.
+Real cover upload, storage, and rendering are intentionally being left for a future iteration.
+
+---
+
+## 🧩 Architecture Highlights
+- **Frontend:** Angular standalone components + Signals + Reactive Forms
+- **Backend:** Spring Boot + Java 21
+- **Database:** PostgreSQL
+- **Schema versioning:** Liquibase
+- **Containers:** Docker Compose for local services
+- **UI foundation:** Bootstrap 5 + Bootstrap Icons
+
+Project structure is intentionally split to reflect real-world growth:
+- `game-backlog-frontend/`
+- `game-backlog-backend/`
+
+---
+
+## Current Limitation
+The main feature intentionally postponed after the MVP is the real cover/media pipeline.
+
+### Not finished yet
+- upload real game covers
+- persist and serve real media references
+- replace placeholder covers with uploaded assets
+
+For now, placeholders keep the interface visually consistent while the core product flows are completed first.
+
+---
+
+## 🛣️ Next Steps
+After this MVP milestone, the most natural next improvements are:
+
+- add real cover upload and media rendering
+- refine progress UX and validation rules
+- add authentication and user ownership
+- introduce tags, ratings, reviews, and comments
+- add achievements and richer session/playtime tracking
+- connect external APIs for richer game metadata
 
 ---
 
 ## 🗂️ Storage Strategy
-For media handling, the project follows a simple local-first approach:
+For media handling, the project follows a local-first strategy:
 
-- Local development: MinIO via Docker Compose
-- Deploy/demo: S3-compatible object storage
-- Database stores only metadata and a `storage_key` or URL, not the raw image bytes
+- local development: MinIO via Docker Compose
+- future deploy/demo: S3-compatible object storage
+- database stores metadata and references, not raw image bytes
+
+This strategy is already planned, but the full media flow is still a future milestone.
 
 ---
 
 ## 🧰 Stack
-- Frontend: Angular
-- Backend: Spring Boot + Java
+- Frontend: Angular 22 + TypeScript + Bootstrap 5
+- Backend: Spring Boot + Java 21
 - Database: PostgreSQL
-- Containerization: Docker
+- Migrations: Liquibase
+- Containerization: Docker Compose
 
 ---
 
+## 📚 Why This Project Exists
+This project exists for two reasons:
+
+1. to build a real, evolving backlog management product
+2. to demonstrate full stack engineering decisions in a portfolio-friendly repository
+
+The goal is not only to make the app work, but to make the codebase look intentional, organized, and ready to evolve.
+
+---
